@@ -188,7 +188,13 @@ abstract class AbstractRequest implements Request
     {
         foreach ($this->getRequiredFields() as $field) {
             if (empty($this->parameters[$field])) {
-                throw new RuntimeException("$field can not be empty");
+                // Allow 0 as amount
+                if ($field === 'amount' && is_int($this->parameters[$field]))
+                {
+                    continue;
+                } else {
+                    throw new RuntimeException("$field can not be empty");
+                }
             }
         }
     }
