@@ -160,8 +160,8 @@ abstract class AbstractPaymentRequest extends AbstractRequest
         if (!is_int($amount)) {
             throw new InvalidArgumentException("Integer expected. Amount is always in cents");
         }
-        if ($amount <= 0) {
-            throw new InvalidArgumentException("Amount must be a positive number");
+        if ($amount < 0) {
+            throw new InvalidArgumentException("Amount must be zero or a positive number");
         }
         if ($amount >= 1.0E+15) {
             throw new InvalidArgumentException("Amount is too high");
