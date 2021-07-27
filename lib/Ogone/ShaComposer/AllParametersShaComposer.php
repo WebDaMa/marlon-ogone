@@ -49,7 +49,12 @@ class AllParametersShaComposer implements ShaComposer
             $parameters = $parameterFilter->filter($parameters);
         }
 
+        // Fix sorting issues with Upper Case and underscore
+        $parameters = array_change_key_case($parameters, CASE_LOWER);
+        // sort keys alphabetically:
         ksort($parameters);
+        // Put them back to UPPER
+        $parameters = array_change_key_case($parameters, CASE_UPPER);
 
         // compose SHA string
         $shaString = '';
