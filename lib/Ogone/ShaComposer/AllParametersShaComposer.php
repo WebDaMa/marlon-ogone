@@ -59,7 +59,10 @@ class AllParametersShaComposer implements ShaComposer
         // compose SHA string
         $shaString = '';
         foreach ($parameters as $key => $value) {
-            $shaString .= $key . '=' . $value . $this->passphrase;
+            // Remove empty values
+            if($value !== "") {
+                $shaString .= $key . '=' . $value . $this->passphrase;
+            }
         }
 
         return strtoupper(hash($this->hashAlgorithm, $shaString));
